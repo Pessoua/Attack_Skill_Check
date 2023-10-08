@@ -1,0 +1,424 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
+
+//Fix double rand()
+
+char BATTLE_INPUT[50];
+
+//User stats
+int user_dmg = 10, user_df = 5, user_hp = 50, user_hp_cap =
+  100, user_abs_cap = 25, user_abs = 0;
+
+//Heal count
+int Item1 = 5, Item2 = 3, item1_heal = 20, item2_heal = 35;
+
+//rand() stuff
+int max_number, min_number, seconds, dmg_w_df;
+int Rand1, Rand2, Rand3, Rand4, Rand5, Rand6, Rand7, Rand8, Rand9, R10, R11,
+  R12, R14, R15, R23, R24, R25, R26, R27, R28, R29;
+int R21 = 0, R22 = 0;
+
+//Enemy stats
+int Enemy_dmg, Enemy_df, Enemy_hp;
+
+const int A;
+int B;
+
+int main_fight ();
+int main ();
+void clear ();
+
+int
+main ()
+{
+  int dificulty_value;
+  char error;
+
+  printf ("Select Dificuly [1] [2] [3] [4]\n");
+  printf ("--->");
+  scanf ("%d%c", &dificulty_value, &error);
+  if (dificulty_value == 1)
+    {
+      printf ("Dificulty 1! \n");
+      main_fight (20, 2, 7, 100, 1, 5, 1);
+    }
+  else if (dificulty_value == 2)
+    {
+      printf ("Dificulty 2! \n");
+      main_fight (35, 3, 10, 1000, 10, 4, 2);
+    }
+  else if (dificulty_value == 3)
+    {
+      printf ("Dificulty 3! \n");
+      main_fight (50, 5, 15, 10000, 100, 3, 3);
+    }
+  else if (dificulty_value == 4)
+    {
+      char Anw1;
+      printf ("Dificulty 4...? \n");
+      printf ("Are you sure? [Y] [N] \n");
+      printf ("--->");
+      scanf ("%s", &Anw1);
+      if (Anw1 == 'Y')
+	{
+	  printf ("Good luck :> \n");
+	  main_fight (75, 7, 25, 1000000, 10000, 2, 4);
+	}
+      else if (Anw1 == 'N')
+	{
+	  printf ("I knew it");
+	}
+      else
+	{
+	  printf ("Input a valid response!\n\n");
+	  sleep (1);
+	  clear ();
+	  main();
+	}
+    } else {
+        printf("Not a valid dificulty!\n");
+        return 0;
+    }
+}
+
+int
+main_fight (int Enemy_hp, int Enemy_df, int Enemy_dmg, int max_number,
+	    int min_number, int seconds, int R12)
+{
+  while (user_hp > 0)
+    {
+      R23 = 0, R24 = -1, R25 = -1, R26 = -1, R27 = 0, R28 = 0, R29 = 0;
+      dmg_w_df = 0;
+      if (R15 == 1)
+	{
+	  //calc. dmg
+	  while (R28 < 1)
+	    {
+	      printf ("You got hit by the Enemy!\n");
+	      if (user_abs > 0)
+		{
+		  user_abs -= Enemy_dmg;
+		  R28++;
+		  if (user_abs < 0 || user_abs == 0)
+		    {
+		      R26++;
+		      R28++;
+		      if (R26 == 0)
+			{
+			  R23 = user_abs - 0;
+			  user_hp += R23;
+			  user_abs = 0;
+			  R28++;
+			}
+		    }
+		}
+	      else if (user_abs == 0)
+		{
+		  R27 = 0.75 * user_df;
+		  dmg_w_df = Enemy_dmg - R27;
+		  user_hp -= dmg_w_df;
+		  R28++;
+		}
+	      if (user_hp < 0 || user_hp == 0)
+		{
+		  user_hp = 0;
+		  R28++;
+		}
+	      printf
+		("Your stats updated, your absorption is %d and your health is %d\n\n",
+		 user_abs, user_hp);
+	    }
+	}
+      if (R14 == 1)
+	{
+	  if (Enemy_hp > 0)
+	    {
+	      printf ("You landed a hit on the Enemy!\n");
+	      R29 = 0.75 * Enemy_df;
+	      dmg_w_df = user_dmg - R29;
+	      Enemy_hp -= dmg_w_df;
+	      printf ("Enemy hp is now %d!\n\n", Enemy_hp);
+	    }
+	}
+	if (Enemy_hp == 0 || Enemy_hp < 0){
+	    printf("You won!"); 
+	    return 0;} 
+	if (user_hp == 0 || user_hp < 0){
+	    printf("You lost.");
+	    return 0;}
+      R14 = 0;			// User_Attack
+      R15 = 0;			// Enemy_Attack
+      if (R12 == 1) { seconds = 5; }
+      else if (R12 == 2) { seconds = 4; }
+      else if (R12 == 3) { seconds = 3;	}
+      else if (R12 == 4) { seconds = 2; }
+      printf ("An Enemy charges towards you!\n");
+      printf ("What will you do? [Attack] [Heal] [Run] \n");
+      printf ("--->");
+      scanf ("%s", BATTLE_INPUT);
+
+      if (strcmp (BATTLE_INPUT, "Attack") == 0)
+	{
+	  printf ("Whats the highest num?\n");
+	  srand (time (NULL));
+	  int Rand1, Rand2, Rand3, Rand4, Rand5, Rand6, Rand7, Rand8, Rand9,
+	    Rand10;
+	  Rand1 = rand () % max_number + min_number;
+	  Rand2 = rand () % max_number + min_number;
+	  Rand3 = rand () % max_number + min_number;
+	  Rand4 = rand () % max_number + min_number;
+	  Rand5 = rand () % max_number + min_number;
+	  Rand6 = rand () % max_number + min_number;
+	  Rand7 = rand () % max_number + min_number;
+	  Rand8 = rand () % max_number + min_number;
+	  Rand9 = rand () % max_number + min_number;
+	  printf ("\n[%d] / [%d] / [%d]\n", Rand1, Rand2, Rand3);
+	  printf ("[%d] / [%d] / [%d]\n", Rand4, Rand5, Rand6);
+	  printf ("[%d] / [%d] / [%d]\n", Rand7, Rand8, Rand9);
+	  while (seconds > 0)
+	    {
+	      int h = seconds / 3600;
+	      int m = seconds / 60;
+	      int s = seconds % 60;
+	      printf ("\r%02d:%02d:%02d", h, m, s);
+	      printf ("\r");
+	      fflush (stdout);
+	      clock_t stop = clock () + CLOCKS_PER_SEC;
+	      while (clock () < stop)
+		{
+		}
+	      seconds--;
+	    }
+	  if (Rand1 > Rand2 && Rand1 > Rand3 && Rand1 > Rand4 && Rand1 > Rand5
+	      && Rand1 > Rand6 && Rand1 > Rand7 && Rand1 > Rand8
+	      && Rand1 > Rand9)
+	    {
+	      R10 = 1;
+	    }
+	  else if (Rand2 > Rand1 && Rand2 > Rand4 && Rand2 > Rand5
+		   && Rand2 > Rand6 && Rand2 > Rand7 && Rand2 > Rand8
+		   && Rand2 > Rand9 && Rand2 > Rand3)
+	    {
+	      R10 = 2;
+	    }
+	  else if (Rand3 > Rand2 && Rand3 > Rand1 && Rand3 > Rand4
+		   && Rand3 > Rand5 && Rand3 > Rand6 && Rand3 > Rand7
+		   && Rand3 > Rand8 && Rand3 > Rand9)
+	    {
+	      R10 = 3;
+	    }
+	  else if (Rand4 > Rand2 && Rand4 > Rand3 && Rand4 > Rand1
+		   && Rand4 > Rand5 && Rand4 > Rand6 && Rand4 > Rand7
+		   && Rand4 > Rand8 && Rand4 > Rand9)
+	    {
+	      R10 = 4;
+	    }
+	  else if (Rand5 > Rand2 && Rand5 > Rand3 && Rand5 > Rand4
+		   && Rand5 > Rand1 && Rand5 > Rand6 && Rand5 > Rand7
+		   && Rand5 > Rand8 && Rand5 > Rand9)
+	    {
+	      R10 = 5;
+	    }
+	  else if (Rand6 > Rand2 && Rand6 > Rand3 && Rand6 > Rand4
+		   && Rand6 > Rand5 && Rand6 > Rand1 && Rand6 > Rand7
+		   && Rand6 > Rand8 && Rand6 > Rand9)
+	    {
+	      R10 = 6;
+	    }
+	  else if (Rand7 > Rand2 && Rand7 > Rand3 && Rand7 > Rand4
+		   && Rand7 > Rand5 && Rand7 > Rand6 && Rand7 > Rand1
+		   && Rand7 > Rand8 && Rand7 > Rand9)
+	    {
+	      R10 = 7;
+	    }
+	  else if (Rand8 > Rand1 && Rand8 > Rand3 && Rand8 > Rand4
+		   && Rand8 > Rand5 && Rand8 > Rand6 && Rand8 > Rand7
+		   && Rand8 > Rand1 && Rand8 > Rand9)
+	    {
+	      R10 = 8;
+	    }
+	  else if (Rand9 > Rand2 && Rand9 > Rand3 && Rand9 > Rand4
+		   && Rand9 > Rand5 && Rand9 > Rand6 && Rand9 > Rand7
+		   && Rand9 > Rand8 && Rand9 > Rand1)
+	    {
+	      R10 = 9;
+	    }
+	  else
+	    {
+	      printf ("\nDouble rand() int\n\n");
+	    }
+	  clear ();
+	  printf ("What was the highest number?\n");
+	  printf ("--->");
+	  scanf ("%d", &R11);
+	  if (R11 == 0){
+	      printf("Resetting!");
+	      return 0;
+	  }
+	  if (R11 == R10)
+	    {
+	      printf ("Sucess!\n\n");
+	      R14++;
+	    }
+	  else if (R11 != R10)
+	    {
+	      printf ("Fail\n\n");
+	      R15++;
+	    }
+	  else
+	    {
+	      printf ("Error\n\n");
+	      return 0;
+	    }
+	}
+      else if (strcmp (BATTLE_INPUT, "Heal") == 0)
+	{
+	  //Inventory
+	  int H_chosen;
+	  printf ("You have %d Healing item one and %d Healing item two \n",
+		  Item1, Item2);
+	  printf ("Use? [1] [2]\n");
+	  printf ("--->");
+	  scanf ("%d", &H_chosen);
+	  if (H_chosen == 1)	//Request
+	    {
+	      if (Item1 != 0)	//Check 
+		{
+		  printf ("\nUsed item1!\n\n");
+		  Item1--;
+		  if (user_hp < user_hp_cap)
+		    {
+		      user_hp += item1_heal;
+		      R22 = user_hp - user_hp_cap;
+		      if (R22 > 0 || user_hp > user_hp_cap
+			  || user_hp == user_hp_cap)
+			{
+			  user_abs = R22;
+			  user_hp = user_hp_cap;
+			  R21++;
+			}
+		    }
+		  else if (R21 == 1 && user_abs < user_abs_cap)
+		    {
+		      user_abs += item1_heal;
+		      if (user_abs > user_abs_cap || user_abs == user_abs_cap)
+			{
+			  user_abs = user_abs_cap;
+			}
+		    }
+		  R15++;
+		}
+	      else
+		{
+		  printf
+		    ("You cant use that item since you have none in your inventory\n\n");
+		}
+	    }
+	  else if (H_chosen == 2)	//Request
+	    {
+	      if (Item2 != 0)	//Check
+		{
+		  printf ("\nUsed item2!\n");
+		  Item2--;
+		  if (user_hp < user_hp_cap)
+		    {
+		      user_hp += item2_heal;
+		      R22 = user_hp - user_hp_cap;
+		      if (R22 > 0 || user_hp > user_hp_cap
+			  || user_hp == user_hp_cap)
+			{
+			  user_abs = R22;
+			  user_hp = user_hp_cap;
+			  R21++;
+			}
+		    }
+		  else if (R21 == 1 && user_abs < user_abs_cap)
+		    {
+		      user_abs += item2_heal;
+		      if (user_abs > user_abs_cap || user_abs == user_abs_cap)
+			{
+			  user_abs = user_abs_cap;
+			}
+		    }
+		  R15++;
+		}
+	      else
+		{
+		  printf
+		    ("You cant use that item since you have none in your inventory\n\n");
+		}
+	    }
+	  else
+	    {
+	      printf ("Input a valid Item!\n");
+	    }
+	}
+      else if (strcmp (BATTLE_INPUT, "Run") == 0)
+	{
+	  srand (time (NULL));
+	  int R13;
+	  if (R12 == 1)
+	    {
+	      printf ("Escaped!\n");
+	      return 0;
+	    }
+	  else if (R12 == 2)
+	    {
+	      R13 = rand () % (1 + 1 - 0) + 0;
+	      if (R13 == 0)
+		{
+		  printf ("Escaped!\n");
+		  return 0;
+		}
+	      else if (R13 == 1)
+		{
+		  printf ("HAHA YOU CANT ESCAPE\n\n");
+		  R15++;
+		}
+	      else
+		{
+		  printf ("Error\n");
+		}
+	    }
+	  else if (R12 == 3)
+	    {
+	      R13 = rand () % (3 + 1 - 0) + 0;
+	      if (R13 == 0 || R13 == 1 || R13 == 2)
+		{
+		  printf ("HAHA YOU CANT ESCAPE\n\n");
+		  R15++;
+		}
+	      else if (R13 == 3)
+		{
+		  printf ("Escaped!\n");
+		  return 0;
+		}
+	    }
+	  else if (R12 == 4)
+	    {
+	      printf ("HAHA YOU CANT ESCAPE\n\n");
+	      R15++;
+	    }
+	  else
+	    {
+	      printf ("Error\n");
+	      return 0;
+	    }
+	}
+      else
+	{
+	  printf ("\nYou gotta select a valid action!\n\n");
+	}
+    }
+  printf ("You won! :>");
+  return 0;
+}
+
+void
+clear ()
+{
+  system ("clear");
+}
